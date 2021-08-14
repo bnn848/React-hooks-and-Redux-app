@@ -17,15 +17,18 @@ import reducer from '../reducer';
           title,
           body
         }
-      );
-      setTitle('');
-      setBody('')
-    };
-
-    useEffect(() => {
-      console.log({state})
-    },[state]);
-
+        );
+        setTitle('');
+        setBody('')
+      };
+      
+    const deleteAllEvents = e => {
+      e.preventDefault()
+      if (window.confirm('全てのイベントを削除しますか？')) {
+        dispatch({type: "DELETE_ALL_EVENTS"})
+      }
+  };
+  
     return (
     <React.Fragment>
       <div className="container-fluid">
@@ -43,8 +46,7 @@ import reducer from '../reducer';
           </div>
           <div className="form-group">
             <label htmlFor="formEventBody">内容</label>
-            <input
-              type="text"
+            <textarea
               className="form-control"
               id="formEventBody"
               value={body}
@@ -52,8 +54,22 @@ import reducer from '../reducer';
               />
           </div>
 
-          <button className="btn btn-primary" onClick={addEvent}>イベントを作成</button>
-          <button className="btn btn-danger">全てのイベントを削除</button>
+          <button
+            className="btn btn-primary"
+            onClick={addEvent}
+            disabled={title === "" || body === ""}
+          >
+            イベントを作成
+          </button>
+
+          <button 
+            className="btn btn-danger"
+            onClick={deleteAllEvents}
+            disabled={state.length === 0}
+          >
+            全てのイベントを削除
+          </button>
+
         </form>
 
         <h4>Events Table</h4>

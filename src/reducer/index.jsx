@@ -7,7 +7,7 @@ const events = (state = [], action) => {
       return [...state, {id: id, ...event}];
     case "DELETE_EVENT":
       return state.filter(item => item.id !== action.id)
-    case "DELETE_ALL_EVENT":
+    case "DELETE_ALL_EVENTS":
       return [] // 空配列で状態を初期化
     default:
       return state // そのままの状態を返す
