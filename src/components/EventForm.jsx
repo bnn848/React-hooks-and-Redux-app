@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
 import { CREATE_EVENT,DELETE_ALL_EVENTS } from '../actions';
+import AppContext from '../contexts/AppContext';
 
 /** App.jsxからpropsとして渡しているので、EventForm.jsxで
  *  importする必要はない.
@@ -10,7 +11,8 @@ import { CREATE_EVENT,DELETE_ALL_EVENTS } from '../actions';
  */
 
 
-const EventForm = ({state, dispatch}) => {
+const EventForm = () => {
+  const {state, dispatch} = useContext(AppContext);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
