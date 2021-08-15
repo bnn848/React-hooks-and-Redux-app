@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { CREATE_EVENT,DELETE_ALL_EVENTS } from '../actions';
+
 /** App.jsxからpropsとして渡しているので、EventForm.jsxで
  *  importする必要はない.
   import { useReducer } from 'react'
@@ -16,7 +18,7 @@ const EventForm = ({state, dispatch}) => {
     e.preventDefault()
     dispatch(
       {
-        type: "CREATE_EVENT",
+        type: CREATE_EVENT,
         title,
         body
       }
@@ -28,7 +30,7 @@ const EventForm = ({state, dispatch}) => {
   const deleteAllEvents = e => {
     e.preventDefault()
     if (window.confirm('全てのイベントを削除しますか？')) {
-      dispatch({type: "DELETE_ALL_EVENTS"})
+      dispatch({type: DELETE_ALL_EVENTS})
     }
   };
 
