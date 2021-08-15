@@ -9,7 +9,14 @@ import AppContext from '../contexts/AppContext';
 console.log({AppContext});
 
   const App = () => {
-    const [state, dispatch] = useReducer(reducer, []);
+
+    // rootReducerにて各Reducerはオブジェクト形式で保管されている
+    // stateはそれぞれの状態を一元管理しているので、初期値に注意
+    const initialState = {
+      events: []
+    };
+    
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     return (
     <AppContext.Provider value={{state, dispatch}}>
