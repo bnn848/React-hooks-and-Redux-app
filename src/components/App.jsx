@@ -6,14 +6,13 @@ import reducer from '../reducer';
 import EventForm from './EventForm';
 import AppContext from '../contexts/AppContext';
 
-console.log({AppContext});
-
   const App = () => {
 
     // rootReducerにて各Reducerはオブジェクト形式で保管されている
     // stateはそれぞれの状態を一元管理しているので、初期値に注意
     const initialState = {
-      events: []
+      events: [],
+      operationLogs: []
     };
     
     const [state, dispatch] = useReducer(reducer, initialState);

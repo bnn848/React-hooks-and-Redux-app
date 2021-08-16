@@ -1,7 +1,13 @@
 import { useState, useContext } from 'react'
 
-import { CREATE_EVENT,DELETE_ALL_EVENTS } from '../actions';
+import {
+  CREATE_EVENT,
+  DELETE_ALL_EVENTS,
+  ADD_OPERATION_LOG,
+  DELETE_OPERATION_LOGS
+} from '../actions';
 import AppContext from '../contexts/AppContext';
+import { timeCurrentToISO } from '../utils';
 
 /** App.jsxからpropsとして渡しているので、EventForm.jsxで
  *  importする必要はない.
@@ -16,23 +22,38 @@ const EventForm = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
+  /** ADD */
   const addEvent = e => {
     e.preventDefault()
-    dispatch(
-      {
+
+    // Events関連のdispatch
+    dispatch({
         type: CREATE_EVENT,
         title,
         body
-      }
-      );
+    })
+
+    // Logs関連のdispatch
+    dispatch({
+      type: ADD_OPERATION_LOG,
+      description: "イベントを作成しました。",
+      operatedAt: timeCurrentToISO()
+    })
+
       setTitle('');
       setBody('')
   };
-    
+  
+  /** DELETE */
   const deleteAllEvents = e => {
     e.preventDefault()
     if (window.confirm('全てのイベントを削除しますか？')) {
       dispatch({type: DELETE_ALL_EVENTS})
+      dispatch({
+        type: ADD_OPERATION_LOG,
+        description: "全てのイベントを削除しました",
+        operatedAt: timeCurrentToISO()
+      })
     }
   };
 
